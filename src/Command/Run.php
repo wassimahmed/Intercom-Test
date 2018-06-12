@@ -6,6 +6,8 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Helper\Table;
+use Waseem\Assessment\Intercom\Service\Customer;
 
 /**
  * Run Command
@@ -36,6 +38,31 @@ class Run extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $file = $input->getOption('file');
-        $output->writeln('Ready to process: '.$file);
+        $output->writeln('Processing: '.$file);
+
+        $service = new Customer();
+        $records = $service->Invite($file);
+
+        $output->writeln(sprintf('Found %d customer(s) to invite.', count($records)));
+        $this->renderTable($output, $records);
+    }
+
+    /**
+     * Renders tabular output
+     * Supplied customers data will be rendered in a tabular (CLI) layout
+     *
+     * @param OutputInterface $output
+     * @param array $data
+     * @return void
+     */
+    protected function renderTable(OutputInterface $output, array $data)
+    {
+        $table = new Table($output);
+        $table
+            ->setHeaders(array('User-ID', 'Name'))
+            ->setRows($data)
+        ;
+
+        $table->render();
     }
 }
