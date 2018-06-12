@@ -1,0 +1,7 @@
+# Ignore directories
+.idea/
+.vscode/
+vendor/
+
+# Ignore certain files
+composer.phar
