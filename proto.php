@@ -24,7 +24,7 @@ function process(string $filePath) : array
         }
 
         // Calculating distance
-        $d = distanceBasic(FOCAL_POINT_LATITUDE, FOCAL_POINT_LONGITUDE, $record['latitude'], $record['longitude']);
+        $d = distanceVincenty(FOCAL_POINT_LATITUDE, FOCAL_POINT_LONGITUDE, $record['latitude'], $record['longitude']);
         if ($d < FOCAL_POINT_RADIUS_KM) {
             $result[] = $record;
         }
@@ -42,6 +42,21 @@ function distanceBasic($lat1, $lon1, $lat2, $lon2)
     $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +  cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
     $dist = acos($dist);
     $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+
+    // Miles to KM
+    return ($miles * 1.609344);
+}
+
+function distanceVincenty($lat1, $lon1, $lat2, $lon2)
+{
+    $theta = $lon1 - $lon2;
+
+    $divisor = sqrt(pow(cos($lat2) * sin($theta), 2) + pow(cos($lat1) * sin($lat2) - sin($lat1) * cos($lat2) * cos($theta), 2));
+    $divider = sin($lat1) * sin($lat2) + cos($lat1) * cos($lat2) * cos($theta);
+
+    $dist = atan2($divider, $divisor);
+    $dist = rad2deg($value);
     $miles = $dist * 60 * 1.1515;
 
     // Miles to KM
