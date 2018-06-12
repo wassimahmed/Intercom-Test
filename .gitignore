@@ -5,3 +5,5 @@ vendor/
 
 # Ignore certain files
 composer.phar
+php-cs-fixer
+.php_cs.cache
