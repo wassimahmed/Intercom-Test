@@ -4,6 +4,7 @@ namespace Waseem\Assessment\Intercom\Command;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -26,11 +27,15 @@ class Run extends Command
             ->setDescription('Runs application task.')
 
             // the full command description of the command
-            ->setHelp('This command performs tasks required for the assessment.');
+            ->setHelp('This command performs tasks required for the assessment.')
+
+            // specify file to process, by-default, process file referenced in the email
+            ->addOption('file', null, InputOption::VALUE_REQUIRED, 'File path to process.', 'asset/customers.txt');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $output->writeln('Ready');
+        $file = $input->getOption('file');
+        $output->writeln('Ready to process: '.$file);
     }
 }
