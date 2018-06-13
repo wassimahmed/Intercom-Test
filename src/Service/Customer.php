@@ -2,24 +2,57 @@
 
 namespace Waseem\Assessment\Intercom\Service;
 
+use Waseem\Assessment\Intercom\Library\CustomerSorter;
+
 /**
  * Customer service
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.0.0
+ * @version 1.1.0
  */
 class Customer
 {
-    /**
-     * Invite customers for party
-     * Accepts file to process, scans through it, validate requirements, and finally returns sorted results
-     *
-     * @param string $filePath File local path, compatible for {@see fopen}
-     * @return void
-     */
-    public function Invite(string $filePath)
-    {
+    const FOCAL_POINT_LATITUDE = 53.339428;
+    const FOCAL_POINT_LONGITUDE = -6.257664;
+    const FOCAL_POINT_RADIUS_KM = 100;
 
-        return array();
+    /**
+     * Reduces customer records for invitation
+     * Reads customer-record from source, calculates distance for eligibility, and finally returns sorted result
+     *
+     * @param \Iterator           $source      Data-source of customer records
+     * @param DistanceCalculator  $calculator  Distance compute helper
+     * @param CustomerSorter      $sorter      Customer-record sort helper
+     * @return array
+     */
+    public function ReduceCustomersToInvite(\Iterator $source, DistanceCalculator $calculator, CustomerSorter $sorter) : array
+    {
+        $result = array();
+
+        // Read one line at a time until EOF
+        foreach ($source as $record) {
+            // Calculating distance
+            $d = $calculator->Calculate(self::FOCAL_POINT_LATITUDE, self::FOCAL_POINT_LONGITUDE, $record['latitude'], $record['longitude']);
+            if ($d <= self::FOCAL_POINT_RADIUS_KM) {
+                $result[] = $this->TransformRecord($record);
+            }
+        }
+
+        return $sorter->Sort($result);
+    }
+
+    /**
+     * Transforms customer record
+     * 'View' consumption based transformation applied to given customer record
+     *
+     * @param array $record
+     * @return array
+     */
+    public function TransformRecord(array $record) : array
+    {
+        return [
+            'user_id' => $record['user_id'],
+            'name'    => $record['name'],
+        ];
     }
 }
