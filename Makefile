@@ -22,3 +22,9 @@ get-composer:
 get-cs-fixer:
 	wget https://github.com/FriendsOfPHP/PHP-CS-Fixer/releases/download/v2.12.1/php-cs-fixer.phar -O php-cs-fixer
 	chmod a+x php-cs-fixer
+
+docker-build:
+	docker build --rm -f Dockerfile -t waseem/intercom:1.0 .
+
+docker-run:
+	docker run --rm --name=waseem_intercom -it waseem/intercom:1.0
