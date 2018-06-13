@@ -3,6 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use Waseem\Assessment\Intercom\Service\DistanceCalculator\Vincenty as VincentyDistanceCalculator;
 
+/**
+ * @coversDefaultClass \Waseem\Assessment\Intercom\Service\DistanceCalculator\Vincenty
+ */
 class VincentyDistanceCalculatorTest extends TestCase
 {
     public function testAllZeros()

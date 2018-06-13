@@ -3,6 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use Waseem\Assessment\Intercom\Library\CustomerSorter;
 
+/**
+ * @coversDefaultClass \Waseem\Assessment\Intercom\Library\CustomerSorter
+ */
 class CustomerSorterTest extends TestCase
 {
     /**

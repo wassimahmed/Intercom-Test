@@ -3,6 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use Waseem\Assessment\Intercom\Library\FileLineIterator;
 
+/**
+ * @coversDefaultClass \Waseem\Assessment\Intercom\Library\FileLineIterator
+ */
 class FileLineIteratorTest extends TestCase
 {
     /**

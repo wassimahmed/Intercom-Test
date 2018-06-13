@@ -3,6 +3,9 @@
 use PHPUnit\Framework\TestCase;
 use Waseem\Assessment\Intercom\Service\DistanceCalculator\Basic as BasicDistanceCalculator;
 
+/**
+ * @coversDefaultClass \Waseem\Assessment\Intercom\Service\DistanceCalculator\Basic
+ */
 class BasicDistanceCalculatorTest extends TestCase
 {
     public function testAllZeros()

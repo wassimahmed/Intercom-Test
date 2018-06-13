@@ -2,7 +2,7 @@ run:
 	php -f index.php
 
 test:
-	./vendor/phpunit/phpunit/phpunit tests/
+	./vendor/phpunit/phpunit/phpunit --coverage-text='asset/code-coverage-report.txt' --whitelist='src/' tests/
 
 install:
 	php -f composer.phar install --no-dev
