@@ -1,14 +1,14 @@
 <?php
 
-namespace Waseem\Assessment\Intercom\Service;
+namespace Waseem\Assessment\Intercom\Service\DistanceCalculator;
 
 /**
- * [Spherical] Distance Calculator
+ * Abstract [Spherical] Distance Calculator
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.1.0
+ * @version 1.2.0
  */
-abstract class DistanceCalculator
+abstract class AbstractDistanceCalculator
 {
     abstract public function Calculate(float $lat1, float $lon1, float $lat2, float $lon2) : float;
 

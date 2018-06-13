@@ -2,15 +2,13 @@
 
 namespace Waseem\Assessment\Intercom\Service\DistanceCalculator;
 
-use Waseem\Assessment\Intercom\Service\DistanceCalculator as base;
-
 /**
  * Vincenty formula based distance calculator
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.1.0
+ * @version 1.2.0
  */
-class Vincenty extends base
+class Vincenty extends AbstractDistanceCalculator
 {
     /**
      * Computes distance between two geographical points using Vincenty formula

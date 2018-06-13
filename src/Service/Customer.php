@@ -3,6 +3,7 @@
 namespace Waseem\Assessment\Intercom\Service;
 
 use Waseem\Assessment\Intercom\Library\CustomerSorter;
+use Waseem\Assessment\Intercom\Service\DistanceCalculator\AbstractDistanceCalculator;
 
 /**
  * Customer service
@@ -20,12 +21,12 @@ class Customer
      * Reduces customer records for invitation
      * Reads customer-record from source, calculates distance for eligibility, and finally returns sorted result
      *
-     * @param \Iterator           $source      Data-source of customer records
-     * @param DistanceCalculator  $calculator  Distance compute helper
-     * @param CustomerSorter      $sorter      Customer-record sort helper
+     * @param \Iterator                   $source      Data-source of customer records
+     * @param AbstractDistanceCalculator  $calculator  Distance compute helper
+     * @param CustomerSorter              $sorter      Customer-record sort helper
      * @return array
      */
-    public function ReduceCustomersToInvite(\Iterator $source, DistanceCalculator $calculator, CustomerSorter $sorter) : array
+    public function ReduceCustomersToInvite(\Iterator $source, AbstractDistanceCalculator $calculator, CustomerSorter $sorter) : array
     {
         $result = array();
 

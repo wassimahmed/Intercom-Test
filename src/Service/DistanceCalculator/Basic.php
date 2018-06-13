@@ -2,15 +2,13 @@
 
 namespace Waseem\Assessment\Intercom\Service\DistanceCalculator;
 
-use Waseem\Assessment\Intercom\Service\DistanceCalculator as base;
-
 /**
  * Basic Distance Calculator
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.0.0
+ * @version 1.1.0
  */
-class Basic extends base
+class Basic extends AbstractDistanceCalculator
 {
     /**
      * Basic distance calculator
