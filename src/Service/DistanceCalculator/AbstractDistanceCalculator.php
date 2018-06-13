@@ -21,12 +21,12 @@ abstract class AbstractDistanceCalculator
     public function RadiansToKilometers(float $value) : float
     {
         // Radian to (decimal) Degree
-       $dist = rad2deg($value);
-    
+        $dist = rad2deg($value);
+
         // Distance in miles where each degree is ~69.09 miles
         // see: https://www.thoughtco.com/degree-of-latitude-and-longitude-distance-4070616
         $miles = $dist * 60 * 1.1515;
-    
+
         // Miles to KM
         return ($miles * 1.609344);
     }
