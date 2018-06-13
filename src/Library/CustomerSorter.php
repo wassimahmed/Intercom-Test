@@ -88,6 +88,7 @@ class CustomerSorter
     public function Sort(array $array) : array
     {
         $on = $this->getSortField();
+        $sortFlags = $on == self::FIELD_USER_ID ? SORT_NUMERIC : SORT_NATURAL;
         $sortFx = $this->getSortOrder() == SORT_ASC ? 'asort' : 'arsort';
         $newArray = array();
         $sortableArray = array();
@@ -107,7 +108,7 @@ class CustomerSorter
             }
 
             // Apply sort function
-            $sortFx($sortableArray);
+            $sortFx($sortableArray, $sortFlags);
 
             // Re-arrange given $array elements in sorted order ($sortableArray)
             foreach ($sortableArray as $k => $v) {
