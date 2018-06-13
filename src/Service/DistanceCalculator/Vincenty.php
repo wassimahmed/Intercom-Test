@@ -16,10 +16,10 @@ class Vincenty extends base
      * Computes distance between two geographical points using Vincenty formula
      * Since general computational formula suffers from rounding-errors (for shorter distances), Vincenty formula is more reliable formula.
      *
-     * @param float $lat1
-     * @param float $lon1
-     * @param float $lat2
-     * @param float $lon2
+     * @param float $lat1 Value in decimal degrees
+     * @param float $lon1 Value in decimal degrees
+     * @param float $lat2 Value in decimal degrees
+     * @param float $lon2 Value in decimal degrees
      * @return float Returns distance (in KMs)
      */
     public function Calculate(float $lat1, float $lon1, float $lat2, float $lon2) : float
