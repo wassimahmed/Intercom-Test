@@ -8,13 +8,17 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Waseem\Assessment\Intercom\Service\Customer;
+use Waseem\Assessment\Intercom\Service\DistanceCalculator\Basic as BasicDistanceCalculator;
+use Waseem\Assessment\Intercom\Library\FileLineIterator;
+use Waseem\Assessment\Intercom\Library\CustomerFilter;
+use Waseem\Assessment\Intercom\Library\CustomerSorter;
 
 /**
  * Run Command
  * Application launcher
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.0.0
+ * @version 1.1.0
  */
 class Run extends Command
 {
@@ -41,7 +45,12 @@ class Run extends Command
         $output->writeln('Processing: '.$file);
 
         $service = new Customer();
-        $records = $service->Invite($file);
+        $reader = new FileLineIterator($file);
+        $filteredReader = new CustomerFilter($reader);
+        $calculator = new BasicDistanceCalculator();
+        $sorter = new CustomerSorter();
+
+        $records = $service->ReduceCustomersToInvite($filteredReader, $calculator, $sorter);
 
         $output->writeln(sprintf('Found %d customer(s) to invite.', count($records)));
         $this->renderTable($output, $records);
