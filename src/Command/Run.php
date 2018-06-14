@@ -19,7 +19,7 @@ use Waseem\Assessment\Intercom\Library\CustomerSorter;
  * Application launcher
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.1.2
+ * @version 1.1.3
  */
 class Run extends Command
 {
@@ -39,8 +39,11 @@ class Run extends Command
             // specify file to process, by-default, process file referenced in the assessment email
             ->addOption('file', null, InputOption::VALUE_REQUIRED, 'File path to process.', 'asset/customers.txt')
 
-            // Which field to use for sorting?
+            // which field to use for sorting?
             ->addOption('sort', null, InputOption::VALUE_REQUIRED, 'Sorting field; user_id (default) or name', 'user_id')
+
+            // sort order
+            ->addOption('order', null, InputOption::VALUE_REQUIRED, 'Sort order field; [A]scending (default) or [D]escending', 'a')
 
             // use Basic formula instead of Vincenty formula for distance calculation
             ->addOption('basic', null, InputOption::VALUE_NONE, 'Compute distance using Basic formula.');
@@ -59,6 +62,7 @@ class Run extends Command
 
         $sorter = new CustomerSorter();
         $sorter->setSortField($input->getOption('sort') == CustomerSorter::FIELD_NAME ? CustomerSorter::FIELD_NAME : CustomerSorter::FIELD_USER_ID);
+        $sorter->setSortOrder(strcasecmp($input->getOption('order'), 'd') === 0 ? SORT_DESC : SORT_ASC);
 
         $records = $service->ReduceCustomersToInvite($filteredReader, $calculator, $sorter);
 
