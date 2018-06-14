@@ -112,7 +112,19 @@ Application dependencies are declared in `composer.json` file and for version lo
 
 Coding style of the application is based on industry standards (described here: https://www.php-fig.org/psr/). Helper package `PHP-CS-Fixer` (PHP Coding Standards fixer, available at: https://cs.sensiolabs.org/) assists in finding violations and fixing most of those automatically.
 
+## Project Structure
+
+| Directory | Comment |
+|-----------|---------|
+| `asset` | Contains project assets. File `customers.txt` contains sample data provided in email. While, file `code-coverage-report.txt` offers code coverage details captured during unit-testing code. |
+| `src \ Command` | `Symfony\Console` component is an implementation of [Command Pattern](https://en.wikipedia.org/wiki/Command_pattern) and this directory contains commands available in an application. For this assessment, there is only one command i.e. `Run` command |
+| `src \ Library` | Re-usable pieces of code are placed in here |
+| `src \ Service` | Classes housing business logics are placed in here |
+| `tests` | Directory contains `PHPUnit` unit-tests to cover all business logic |
+| `vendor` | Contains dependent packages. Only available after `Composer` was executed successfully. |
+
 ## Future Improvements
+* Use `Symfony Dependency Injection` (a.k.a Service-Container, https://symfony.com/doc/current/components/dependency_injection.html) to instantiate services and dependencies.
 * Web version with basic Bootstrap, submits form with:
   * URL / file-upload, 
   * JSON key to output,
