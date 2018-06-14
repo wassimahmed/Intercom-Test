@@ -1,5 +1,5 @@
 run:
-	php -f index.php
+	php -f index.php ${ARGS}
 
 test:
 	./vendor/phpunit/phpunit/phpunit --coverage-text='asset/code-coverage-report.txt' --whitelist='src/' tests/
