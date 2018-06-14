@@ -9,6 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Helper\Table;
 use Waseem\Assessment\Intercom\Service\Customer;
 use Waseem\Assessment\Intercom\Service\DistanceCalculator\Basic as BasicDistanceCalculator;
+use Waseem\Assessment\Intercom\Service\DistanceCalculator\Vincenty as VincentyDistanceCalculator;
 use Waseem\Assessment\Intercom\Library\FileLineIterator;
 use Waseem\Assessment\Intercom\Library\CustomerFilter;
 use Waseem\Assessment\Intercom\Library\CustomerSorter;
@@ -18,7 +19,7 @@ use Waseem\Assessment\Intercom\Library\CustomerSorter;
  * Application launcher
  *
  * @author Waseem Ahmed <waseem_ahmed_dxb@outlook.com>
- * @version 1.1.0
+ * @version 1.1.1
  */
 class Run extends Command
 {
@@ -35,8 +36,11 @@ class Run extends Command
             // the full command description of the command
             ->setHelp('This command performs tasks required for the assessment.')
 
-            // specify file to process, by-default, process file referenced in the email
-            ->addOption('file', null, InputOption::VALUE_REQUIRED, 'File path to process.', 'asset/customers.txt');
+            // specify file to process, by-default, process file referenced in the assessment email
+            ->addOption('file', null, InputOption::VALUE_REQUIRED, 'File path to process.', 'asset/customers.txt')
+
+            // use Basic formula instead of Vincenty formula for distance calculation
+            ->addOption('basic', null, InputOption::VALUE_NONE, 'Compute distance using Basic formula.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -47,7 +51,7 @@ class Run extends Command
         $service = new Customer();
         $reader = new FileLineIterator($file);
         $filteredReader = new CustomerFilter($reader);
-        $calculator = new BasicDistanceCalculator();
+        $calculator = $input->getOption('basic') == true ? new BasicDistanceCalculator() : new VincentyDistanceCalculator();
         $sorter = new CustomerSorter();
 
         $records = $service->ReduceCustomersToInvite($filteredReader, $calculator, $sorter);
